@@ -23,6 +23,4 @@ const MyComponent = () => (
 ReactDOM.render(<App />, document.getElementById('app'));
 */
 
-
-
 ReactDOM.render(<MyComponent/>, document.getElementById('app'));
