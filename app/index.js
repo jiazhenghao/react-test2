@@ -133,3 +133,97 @@ class MarkdownEditor extends React.Component {
 
 }
 */
+
+
+class MyComponent6 extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('constructor');
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      name: 'Mark',
+    }
+  }
+  handleClick() {
+    this.setState({'name': 'Zuck'});
+  }
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps');
+  }
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("tttest");
+        return nextProps.id !== this.props.id;/*默认是true，所以当state发生变化，就会变化，但如果强制false，就不会更新了*/
+    }
+
+  render() {
+    return (
+      <div onClick={this.handleClick}>Hi, {this.state.name}</div>
+    );
+  }
+}
+
+ReactDOM.render(<MyComponent6 />, document.getElementById('app6'));
+
+
+class UserGithub extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          username: '',
+          githubtUrl: '',
+          avatarUrl: '',
+        }
+    }
+    componentDidMount() {
+        $.get(this.props.source, (result) => {
+            console.log(result);
+            const data = result;
+            if (data) {
+              this.setState({
+                    username: data.name,
+                    githubtUrl: data.html_url,
+                    avatarUrl: data.avatar_url
+              });
+            }
+        });
+    }
+    render() {
+        return (
+          <div>
+            <h3>{this.state.username}</h3>
+            <img src={this.state.avatarUrl} />
+            <hr />
+            <a href={this.state.githubtUrl}>Github Link</a>.
+          </div>
+        );
+    }
+}
+
+ReactDOM.render(
+  <UserGithub source="https://api.github.com/users/torvalds" />,
+  document.getElementById('app7')
+);
+
+
+
+
+
+
+
+
